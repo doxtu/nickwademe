@@ -1,0 +1,9 @@
+==========
+PROD NOTES
+==========
+
+0. Delete old directory (sudo rm -rf /home/doxtu/doxtume)
+1. Change port in app.js to 80
+2. sudo npm install
+3. clone projects into directories
+4. sudo systemctl restart doxtume (Restart the service, edit the service config file if necessary)
