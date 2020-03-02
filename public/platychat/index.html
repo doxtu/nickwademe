@@ -516,8 +516,16 @@
       */
       
       socket.on('login-response',function(sessionid,userid){
-         if(/ERROR/.test(sessionid)) return console.error(sessionid) && (PageData.currentState = 'login');
-         if(typeof userid === 'undefined') return console.error('user not defined') && (PageData.currentState = 'login');
+         if(/ERROR/.test(sessionid)){
+            console.error(sessionid);
+            PageData.currentState = 'login';
+            return localStorage.clear();
+         }
+         if(typeof userid === 'undefined'){
+            console.error('user not defined') 
+            PageData.currentState = 'login';
+            return localStorage.clear();
+         } 
          
          PageData.sessionid = sessionid;
          PageData.userid = userid;
@@ -531,7 +539,11 @@
          if(sessionid === PageData.sessionid) {
             socket.emit('convo-list-request',PageData.sessionid, PageData.userid);
          }
-         else return console.error(sessionid) && (PageData.currentState = 'login');
+         else {
+            console.error(sessionid);
+            PageData.currentState = 'login';
+            localStorage.clear();
+         }
       });
       
       socket.on('convo-list-response',function(convoList){
