@@ -168,19 +168,28 @@ module.exports = function(io){
          let messages = await new Promise(function(s,f){
             db.all(`
                SELECT
-                  messages.*,
-                  users.color,
-                  users.alias,
-                  tags.tagname
+                  a.*
                FROM
-                  convos
-                  INNER JOIN messages ON messages.convoid = convos.convoid
-                  INNER JOIN users ON users.userid = messages.userid
-                  LEFT OUTER JOIN tags ON tags.messageid = messages.messageid
-               WHERE
-                  convos.convoid = :convoid
+                  (
+                  SELECT
+                     messages.*,
+                     users.color,
+                     users.alias,
+                     tags.tagname
+                  FROM
+                     convos
+                     INNER JOIN messages ON messages.convoid = convos.convoid
+                     INNER JOIN users ON users.userid = messages.userid
+                     LEFT OUTER JOIN tags ON tags.messageid = messages.messageid
+                  WHERE
+                     convos.convoid = :convoid
+                  ORDER BY
+                     messages.messageid DESC
+                  LIMIT
+                     100
+                  ) a
                ORDER BY
-                  messages.messageid
+                  a.messageid ASC
             `,convoid, function(err,rows){
                if(err) f(err);
                s(rows);
