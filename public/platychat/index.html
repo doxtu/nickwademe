@@ -295,7 +295,8 @@
          <ul id='messengerMessages'>
          </ul>
          
-         <form>            
+         <form>
+            <input id='messengerInputFile' type='file'>
             <input id='messengerInput' autocomplete='off' type='text'>
             <button>Send</button>
          </form>
@@ -345,6 +346,7 @@
       var ulMessages = document.querySelector('#messengerMessages');
       var formMessenger = document.querySelector('#messenger form');
       var inputMessenger = document.querySelector('#messengerInput');
+      var inputMessengerFile = document.querySelector('#messengerInputFile');
       var divMenuMessenger = document.querySelector('#messengerMenu');
       var buttonMessengerBack = document.querySelector('#messengerMenuBack');
       
@@ -393,6 +395,7 @@
                sectionLogin.style.display = 'none';
                sectionMenu.style.display = 'none';
                sectionMessenger.style.display = 'flex';
+               imageReplacement();
                break;
             default:
                sectionLogin.style.display = 'none';
@@ -403,11 +406,74 @@
       
       /*
       *
+      *RENDER FUNCTIONS
+      *RENDER FUNCTIONS
+      *RENDER FUNCTIONS
+      *
+      */
+      
+      function imageReplacement(){
+         var messages = ulMessages.children;
+         
+         for(var i = 0; i < messages.length; i++){
+            var message = /: .*/.exec(messages[i].innerHTML);
+            message = message === null ? null : message[0];
+            if(typeof message !== 'string') continue;
+            
+            var messagePieces = message.split(' ');
+            if(messagePieces[1] !== '/image') continue;
+            
+            var imageData = messagePieces[2];
+            var img = document.createElement('img');
+            img.src = imageData;
+            img.width = img.width < window.innerWidth - 200 ? img.width : window.innerWidth - 200;
+            messages[i].innerHTML = '';
+            messages[i].append(img);
+         }
+      }
+      
+      /*
+      *
       *element listeners
       *element listeners
       *element listeners
       *
       */
+      
+      window.addEventListener('paste',function(e){
+         var items = e.clipboardData.items;
+         var blob;
+         
+         for(var i = 0; i<items.length; i++){
+            if(items[i].kind === 'file'){
+               blob = items[i].getAsFile();
+               break;
+            }
+         }
+         
+         if(typeof blob === 'undefined') return;
+         
+         var fileReader = new FileReader();
+         fileReader.onload = function(e){
+            inputMessenger.value = '/image ' + e.target.result;
+         }
+         fileReader.readAsDataURL(blob);
+      });
+      
+      inputMessengerFile.addEventListener('change',function(e){
+         var fileList = this.files;
+         
+         for(var i = 0; i < fileList.length; i++){
+            var blob = fileList[i];
+            
+            var fileReader = new FileReader();
+            fileReader.onload = function(e){
+               inputMessenger.value = '/image ' + e.target.result;
+            }
+            fileReader.readAsDataURL(blob);
+         }
+         
+      });
       
       formLogin.addEventListener('submit',function(e){
          e.preventDefault();
@@ -598,6 +664,7 @@
             ulMessages.scrollTo(0,100000000);
          },100);
          
+         //imageReplacement();
       });
       
       socket.on('convo-message-response',function(convoid){});
