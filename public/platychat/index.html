@@ -407,6 +407,13 @@
          }
       }
       
+      (function reloadRoom(){
+         if(PageData.currentState === 'messenger'){
+            socket.emit('convo-join-request',PageData.sessionid, PageData.userid, PageData.currentConvoId);
+         }
+         setTimeout(reloadRoom,10000);
+      })();
+      
       /*
       *
       *element listeners
@@ -414,6 +421,12 @@
       *element listeners
       *
       */
+      
+      window.addEventListener('focus',function(e){
+         if(PageData.currentState === 'messenger'){
+            socket.emit('convo-join-request',PageData.sessionid, PageData.userid, PageData.currentConvoId);
+         }
+      });
       
       window.addEventListener('paste',function(e){
          var items = e.clipboardData.items;
@@ -618,6 +631,7 @@
          
          PageData.currentState = 'messenger'
          PageData.currentConvoId = convoid;
+         ulMessages.innerHTML = '';
          
          messages = JSON.parse(messages);
          
@@ -638,8 +652,6 @@
          setTimeout(function(){
             ulMessages.scrollTo(0,100000000);
          },100);
-         
-         //imageReplacement();
       });
       
       socket.on('convo-message-response',function(convoid){});

@@ -43,7 +43,7 @@ module.exports = function(io){
 
    async function loginRequest(userid,password){
       let userpass = await new Promise(function(s,f){
-         db.all(`SELECT userid FROM users WHERE userid = :userid AND password = :password`,userid,password, function(err,rows){
+         db.all(`SELECT userid FROM users WHERE UPPER(userid) = UPPER(:userid) AND password = :password`,userid,password, function(err,rows){
             if(err) f();
             s(rows);
          });
@@ -254,7 +254,7 @@ module.exports = function(io){
                   
                   //get the encoding
                   let encoding = /;.*,/.exec(args)[0];
-                  encoding = encoding === null ? 'utf-8,' : encoding.slice(1,encoding.length-1);
+                  encoding = encoding === null ? 'utf-8' : encoding.slice(1,encoding.length-1);
                   
                   //get the raw data
                   let imageData = /,.*/.exec(args)[0];
@@ -273,11 +273,20 @@ module.exports = function(io){
                      console.error(err);
                   });
                   
-                  rawtext = `<img src = ${publicFileName}>`;
+                  rawtext = `<br><img src = ${publicFileName}>`;
                   
                   break;
                default:
             }
+         }
+         
+         //wrap http URLs with <a> element
+         let hasHttpLink = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(rawtext);
+         
+         if(hasHttpLink){
+            let link = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.exec(rawtext)[0];
+            
+            rawtext = rawtext.replace(link,`<a href=${link} target='_blank'>${link}</a>`);
          }
          
          await new Promise(function(s,f){
