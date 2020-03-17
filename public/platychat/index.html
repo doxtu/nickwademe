@@ -182,6 +182,10 @@
             padding: 5px 10px;
          }
          
+         #messengerMessages img{
+            max-width:90%;
+         }
+         
          #messenger form{
             width:90%;
          }
@@ -395,40 +399,11 @@
                sectionLogin.style.display = 'none';
                sectionMenu.style.display = 'none';
                sectionMessenger.style.display = 'flex';
-               imageReplacement();
                break;
             default:
                sectionLogin.style.display = 'none';
                sectionMenu.style.display = 'none';
                sectionMessenger.style.display = 'none';
-         }
-      }
-      
-      /*
-      *
-      *RENDER FUNCTIONS
-      *RENDER FUNCTIONS
-      *RENDER FUNCTIONS
-      *
-      */
-      
-      function imageReplacement(){
-         var messages = ulMessages.children;
-         
-         for(var i = 0; i < messages.length; i++){
-            var message = /: .*/.exec(messages[i].innerHTML);
-            message = message === null ? null : message[0];
-            if(typeof message !== 'string') continue;
-            
-            var messagePieces = message.split(' ');
-            if(messagePieces[1] !== '/image') continue;
-            
-            var imageData = messagePieces[2];
-            var img = document.createElement('img');
-            img.src = imageData;
-            img.width = img.width < window.innerWidth - 200 ? img.width : window.innerWidth - 200;
-            messages[i].innerHTML = '';
-            messages[i].append(img);
          }
       }
       

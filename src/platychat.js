@@ -237,6 +237,49 @@ module.exports = function(io){
          + String(today.getSeconds()).padStart(2,'0')
          + String(today.getMilliseconds()).padStart(2,'0');
          
+         //handle command
+         if(rawtext[0] === '/'){
+            let tokens = rawtext.split(' ');
+            let command = tokens[0].slice(1,tokens[0].length);
+            let args = tokens.slice(1,tokens.length);
+            switch(command){
+               case 'image':
+                  const fs = require('fs');
+                  args = args.join(' ');
+                  
+                  //get the filetype
+                  let mime = /:.*;/.exec(args)[0].split('/');
+                  let filetype = mime[1];
+                  filetype = filetype.slice(0,filetype.length-1);
+                  
+                  //get the encoding
+                  let encoding = /;.*,/.exec(args)[0];
+                  encoding = encoding === null ? 'utf-8,' : encoding.slice(1,encoding.length-1);
+                  
+                  //get the raw data
+                  let imageData = /,.*/.exec(args)[0];
+                  imageData = imageData === null ? null : imageData.slice(1,imageData.length);
+                  
+                  //generate the full path name
+                  let fileName = 'public/platychat/images/' + 'platychat' + todayString + '.' + filetype;
+                  let publicFileName = 'images/' + 'platychat' + todayString + '.' + filetype;
+                  
+                  await new Promise(function(s,f){
+                     fs.writeFile(fileName, imageData, encoding, function(err){
+                        if(err) f(err);
+                        else s();
+                     });
+                  }).catch(function(err){
+                     console.error(err);
+                  });
+                  
+                  rawtext = `<img src = ${publicFileName}>`;
+                  
+                  break;
+               default:
+            }
+         }
+         
          await new Promise(function(s,f){
             db.all(`
                INSERT INTO messages(
