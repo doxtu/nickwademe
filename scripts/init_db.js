@@ -5,6 +5,15 @@ const db = new sqlite3.Database('../data/platychat.db');
    
    await new Promise(function(s,f){
       db.all(`
+         CREATE VIEW dual AS SELECT 'x' AS dummy
+      `,function(err,results){
+         if(err) f(err);
+         else s();
+      });
+   });
+   
+   await new Promise(function(s,f){
+      db.all(`
          CREATE TABLE sessions(
             sessionid   TEXT,
             userid      TEXT
@@ -56,6 +65,7 @@ const db = new sqlite3.Database('../data/platychat.db');
             messageid   TEXT,
             convoid     TEXT,
             userid      TEXT,
+            timestamp   TEXT,
             rawtext     TEXT
          )
       `,function(err,results){

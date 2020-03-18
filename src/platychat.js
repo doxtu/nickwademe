@@ -230,12 +230,19 @@ module.exports = function(io){
          
          const today = new Date(Date.now());
          const todayString = String(today.getFullYear()).padStart(4,'0')
-         + String(today.getMonth()).padStart(2,'0')
-         + String(today.getDate()).padStart(2,'0')
-         + String(today.getHours()).padStart(2,'0')
-         + String(today.getMinutes()).padStart(2,'0')
-         + String(today.getSeconds()).padStart(2,'0')
-         + String(today.getMilliseconds()).padStart(2,'0');
+            + String(today.getMonth()).padStart(2,'0')
+            + String(today.getDate()).padStart(2,'0')
+            + String(today.getHours()).padStart(2,'0')
+            + String(today.getMinutes()).padStart(2,'0')
+            + String(today.getSeconds()).padStart(2,'0')
+            + String(today.getMilliseconds()).padStart(2,'0');
+         
+         const timestamp = String(today.getMonth() + 1).padStart(2,'0') + '/'
+            + String(today.getDate()).padStart(2,'0') + '/'
+            + String(today.getFullYear()).padStart(4,'0') + ' '
+            + String(today.getHours()).padStart(2,'0') + ':'
+            + String(today.getMinutes()).padStart(2,'0') + ':'
+            + String(today.getSeconds()).padStart(2,'0')
          
          //handle command
          if(rawtext[0] === '/'){
@@ -248,7 +255,8 @@ module.exports = function(io){
                   args = args.join(' ');
                   
                   //get the filetype
-                  let mime = /:.*;/.exec(args)[0].split('/');
+                  let mime = /:.*;/.exec(args)[0];
+                  mime = mime === null ? ['','txt'] : mime.split('/');
                   let filetype = mime[1];
                   filetype = filetype.slice(0,filetype.length-1);
                   
@@ -258,7 +266,7 @@ module.exports = function(io){
                   
                   //get the raw data
                   let imageData = /,.*/.exec(args)[0];
-                  imageData = imageData === null ? null : imageData.slice(1,imageData.length);
+                  imageData = imageData === null ? '' : imageData.slice(1,imageData.length);
                   
                   //generate the full path name
                   let fileName = 'public/platychat/images/' + 'platychat' + todayString + '.' + filetype;
@@ -295,14 +303,16 @@ module.exports = function(io){
                   messageid,
                   convoid,
                   userid,
+                  timestamp,
                   rawtext
                ) VALUES (
                   :messageid,
                   :convoid,
                   :userid,
+                  :timestamp,
                   :rawtext
                )
-            `,todayString,convoid,userid,rawtext,function(err){
+            `,todayString,convoid,userid,timestamp,rawtext,function(err){
                if(err) f(err);
                s();
             })
@@ -332,7 +342,7 @@ module.exports = function(io){
          },'');
          
          this.emit('convo-message-response',convoid);
-         io.to(convoid).emit('convo-message-incoming',convoid,todayString,alias,color,rawtext);
+         io.to(convoid).emit('convo-message-incoming',convoid,todayString,alias,color,timestamp, rawtext);
       }
    }
 

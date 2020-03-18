@@ -233,6 +233,27 @@
             color: #fff;
          }
          
+         /*DARK MODE*/
+         
+         .dark-mode,
+         #menuOpenSettings.dark-mode,
+         #menuConvos td.dark-mode,
+         #messengerMessages.dark-mode a{
+            background:black;
+            color:white;
+         }
+         
+         #messengerMessages.dark-mode a{
+            color:lightblue;
+         }
+         
+         #messengerMessages.dark-mode a:hover{
+            color:#555;
+         }
+         
+         #messengerMessages.dark-mode a:visited{
+            color:blue;
+         }
       </style>
    </head>
    <body>
@@ -344,6 +365,7 @@
       var divSettings = document.querySelector('#menuSettings');
       var formSettingsSearch = document.querySelector('#menuSettingsSearch');
       var ulSettingsSearchResults = document.querySelector('#messageSearchResults');
+      var buttonSettingsDarkMode = document.querySelector('#menuSettingsDarkmode');
       
       //messenger
       var sectionMessenger = document.querySelector('#messenger');
@@ -514,6 +536,18 @@
          divSettings.style.display = 'block';
       });
       
+      buttonSettingsDarkMode.addEventListener('click',function(e){
+         document.body.classList.toggle('dark-mode');
+         menuOpenSettings.classList.toggle('dark-mode');
+         ulMessages.classList.toggle('dark-mode');
+         
+         var convoRows = menuConvos.querySelectorAll('td');
+         
+         for(var i = 0; i<convoRows.length; i++){
+            convoRows[i].classList.toggle('dark-mode');
+         }
+      });
+      
       buttonMessengerBack.addEventListener('click',function(e){
          e.preventDefault();
          e.stopPropagation();
@@ -639,7 +673,7 @@
             var elt = document.createElement('li');
             elt.id = 'message-' + d.messageid;
             elt.innerHTML = 
-               '<span style="color:' + d.color + '">' + d.alias + '</span>' 
+               d.timestamp + ' <span style="color:' + d.color + '">' + d.alias + '</span>' 
                + (d.tagname === null ? '' : '(' + d.tagname + ')') + ': ' + d.rawtext;
             
             var span = elt.querySelector('span');
@@ -656,10 +690,10 @@
       
       socket.on('convo-message-response',function(convoid){});
       
-      socket.on('convo-message-incoming',function(convoid,messageid,alias,color,rawtext){
+      socket.on('convo-message-incoming',function(convoid,messageid,alias,color,timestamp,rawtext){
          var elt = document.createElement('li');
          elt.id = 'message-' + messageid;
-         elt.innerHTML = '<span style="color:' + color + '">' + alias + '</span>' + ': ' + rawtext;
+         elt.innerHTML = timestamp + ' <span style="color:' + color + '">' + alias + '</span>' + ': ' + rawtext;
          
          var span = elt.querySelector('span');
          span.addEventListener('click',showCreateTagForm);
