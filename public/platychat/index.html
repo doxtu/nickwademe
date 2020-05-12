@@ -337,8 +337,10 @@
    
    
    <script src='/socket.io/socket.io.js'></script>
+   <script src='/siofu/client.js'></script>
    <script>
       var socket = io();
+      var instance = new SocketIOFileUpload(socket);
       
       //login elements
       var sectionLogin = document.querySelector('#login');
@@ -465,7 +467,11 @@
          
          var fileReader = new FileReader();
          fileReader.onload = function(e){
-            inputMessenger.value = '/image ' + e.target.result;
+            //inputMessenger.value = '/image ' + e.target.result;
+            //send file for upload
+            //socket.emit('convo-message-request',PageData.sessionid, PageData.userid, PageData.currentConvoId, '/image');
+            console.log(Object.keys(e.target));
+            //emit message to mark image upload
          }
          fileReader.readAsDataURL(blob);
       });

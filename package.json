@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^2.3.0",
+    "socketio-file-upload": "^0.7.0",
     "sqlite3": "^4.1.1"
   }
 }
