@@ -8,4 +8,5 @@ PROD NOTES
 - clone projects into directories
 - run all setup scripts
 - create image folders for middleware/sub-apps
+- set config.json (env=PROD for production, env=DEV for development)
 - sudo systemctl restart doxtume (Restart the service, edit the service config file if necessary)

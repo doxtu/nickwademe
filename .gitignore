@@ -3,3 +3,5 @@ config.json
 data
 public/platychat/images/
 .well-known
+server.key
+server.cert

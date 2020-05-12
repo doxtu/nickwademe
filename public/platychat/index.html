@@ -464,14 +464,22 @@
          }
          
          if(typeof blob === 'undefined') return;
-         
          var fileReader = new FileReader();
+
+         function _generateRandomString(){
+            let ret = '';
+            for(let = 0; i<9; i++){
+               ret += Math.round(Math.random()*9).toString();
+            }
+            return ret; 
+         }
+         const fileIdentifier = _generateRandomString();
+
+         blob.meta = fileIdentifier;
          fileReader.onload = function(e){
             //inputMessenger.value = '/image ' + e.target.result;
-            //send file for upload
-            //socket.emit('convo-message-request',PageData.sessionid, PageData.userid, PageData.currentConvoId, '/image');
-            console.log(Object.keys(e.target));
-            //emit message to mark image upload
+            socket.emit('convo-message-request',PageData.sessionid, PageData.userid, PageData.currentConvoId, '/image '+fileIdentifier);
+            instance.submitFiles([ blob ]);
          }
          fileReader.readAsDataURL(blob);
       });
@@ -482,9 +490,20 @@
          for(var i = 0; i < fileList.length; i++){
             var blob = fileList[i];
             
+            function _generateRandomString(){
+               let ret = '';
+               for(let = 0; i<9; i++){
+                  ret += Math.round(Math.random()*9).toString();
+               }
+               return ret; 
+            }
+            const fileIdentifier = _generateRandomString();
+
+            blob.meta = fileIdentifier;
             var fileReader = new FileReader();
             fileReader.onload = function(e){
-               inputMessenger.value = '/image ' + e.target.result;
+               socket.emit('convo-message-request',PageData.sessionid, PageData.userid, PageData.currentConvoId, '/image '+fileIdentifier);
+               instance.submitFiles([ blob ]);
             }
             fileReader.readAsDataURL(blob);
          }
