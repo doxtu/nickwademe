@@ -16,11 +16,9 @@ const platychat = require('./src/platychat.js');
 
 platychat(io,siofu);
 
-app.use(function(req, res, next){
-   if(req.protocol==='http'){
-      res.redirect('https://localhost' + req.url);
-   }
-   next();
+app.all('*',function(req,res,next){
+   if(req.protocol === 'https') return next();
+   res.redirect('https://'+req.hostname+req.url);
 });
 app.use(siofu.router);
 app.use(express.static('./public'));
