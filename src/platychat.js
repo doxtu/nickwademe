@@ -60,7 +60,7 @@ module.exports = function(io,siofu){
          let newSessionKey = generateSessionKey();
          
          await new Promise(function(s,f){
-            db.all(`DELETE FROM sessions WHERE userid = :userid`,userid,function(err){
+            db.all(`DELETE FROM sessions WHERE UPPER(userid) = UPPER(:userid)`,user,function(err){
                if(err) f(err);
                s();
             })
@@ -73,13 +73,13 @@ module.exports = function(io,siofu){
             )VALUES(
                :session, 
                :userid
-            )`,newSessionKey,userid,function(err){
+            )`,newSessionKey,user,function(err){
                if(err) f(err);
                s();
             })
          }).catch(console.error);
          
-         this.emit('login-response',newSessionKey,userid);
+         this.emit('login-response',newSessionKey,user);
       }
    }
 
