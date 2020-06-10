@@ -539,7 +539,7 @@
          if(inputMessenger.value.length <= 0) return console.error('cant submit blank');
          
          socket.emit('convo-message-request',PageData.sessionid, PageData.userid, PageData.currentConvoId, inputMessenger.value);
-         
+         ulMessages.scrollTo(0,10000000000);
          inputMessenger.value = '';
       });
       
@@ -687,7 +687,9 @@
       socket.on('convo-join-response',function(convoid,messages){
          if(/ERROR/.test(PageData.sessionid)) return console.error(PageData.sessionid) && (PageData.currentState = 'menu');
          if(typeof convoid === 'undefined') return console.error('no convoid') && (PageData.currentState = 'menu');
-         
+         if(PageData.currentState !== 'messenger')
+            setTimeout(function(){ulMessages.scrollTo(0,100000000);},100);
+
          PageData.currentState = 'messenger'
          PageData.currentConvoId = convoid;
          ulMessages.innerHTML = '';
@@ -708,13 +710,10 @@
             ulMessages.append(elt);
          });
          
-         setTimeout(function(){
-            ulMessages.scrollTo(0,100000000);
-         },100);
       });
       
       socket.on('convo-message-response',function(convoid){});
-      
+
       socket.on('convo-message-incoming',function(convoid,messageid,alias,color,timestamp,rawtext){
          var elt = document.createElement('li');
          elt.id = 'message-' + messageid;
