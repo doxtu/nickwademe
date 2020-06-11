@@ -491,6 +491,7 @@ module.exports = function(io,siofu){
       uploader.dir = 'public/platychat/images';
       uploader.on('start',updateFileMeta);
       uploader.on('saved',updateMessageWithFile);
+      uploader.on('error',console.error);
       uploader.listen(socket);
    });
 }
