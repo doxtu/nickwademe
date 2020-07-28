@@ -20,16 +20,21 @@ ul{
    list-style-type:none;
 }
 
-li, a{
-   color:#1f9c09;
+li{
+   margin-left:30px;
 }
 
 a{
    text-decoration:none;
+   color:#1f9c09;
 }
 
 a:hover{
    color:#28cf0a
+}
+
+h2{
+   font-weight:bold;
 }
 
 /*HEADER*/
