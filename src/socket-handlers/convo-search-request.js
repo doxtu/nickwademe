@@ -9,6 +9,7 @@ module.exports = (db) => async function convoSearchRequest(sessionid, userid, se
           db.all(`
              SELECT
                 messages.rawtext,
+                messages.timestamp,
                 tags.tagname,
                 users.alias
              FROM

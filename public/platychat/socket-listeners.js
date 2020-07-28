@@ -120,7 +120,9 @@ socket.on('login-response',function(sessionid,userid){
     messages.forEach(function(d){
        var elt = document.createElement('li');
        
-       elt.innerHTML = (d.tagname !== null && d.tagname.length > 0 ? d.tagname + ' --- ' : '') + d.alias + ': ' + d.rawtext;
+       elt.innerHTML = (
+          d.tagname !== null && d.tagname.length > 0 ? d.tagname + ' --- ' : ''
+       ) + d.alias + ' ' + d.timestamp + ': ' + d.rawtext;
        
        ulSettingsSearchResults.append(elt);
     });
