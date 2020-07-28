@@ -1,0 +1,32 @@
+/*Login*/
+         
+#formLogin{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ }
+ 
+ #formLogin > *{
+    width:30%;
+    margin: 5px;
+    border-radius:1px;
+    border:1px solid #eee;
+    padding:10px;
+    height: 30px;
+ }
+ 
+ #formLogin > h1{
+    border: 0;
+ }
+ 
+ #formLogin > input:focus{
+    outline:1px solid #aaa;
+ }
+ 
+ #formLogin > button{
+    border-radius:5px;
+    height:30px;
+    background:#7703fc;
+    color:#fff;
+ }

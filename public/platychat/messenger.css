@@ -1,0 +1,95 @@
+/*Messenger*/
+         
+#messenger{
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:90vh;
+    width:100vw;
+ }
+ 
+ #messengerMessages{
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0;
+    width:90%;
+    height:80%;
+    overflow-y:scroll;
+ }
+ 
+ #messengerMessages li {
+    padding: 5px 10px;
+ }
+ 
+ #messengerMessages img{
+    max-width:90%;
+ }
+ 
+ #messenger form{
+    width:90%;
+ }
+ 
+ #messengerInput{
+    border:1px solid black;
+    width:90%;
+    height:30px;
+ }
+ 
+ #messenger > form button{
+    width:8%;
+    height:30px;
+    background: #7703fc;
+    color: #fff;
+ }
+ 
+ #messengerCreateTag{
+    display:none;
+    padding:10px;
+    position:absolute;
+    top:40%;
+    left:40%;
+    background:#000;
+    box-shadow: 0px 9px 40px -10px #333;
+    z-index:100;
+ }
+ 
+ #messengerCreateTag form{
+    display:flex;
+    flex-direction:row;
+ }
+ 
+ #messengerCreateTag form > button{
+    padding:2px;
+    background: #7703fc;
+    color: #fff;
+    width:70px;
+ }
+ 
+ #messengerMenuBack {
+    padding: 0 30px;
+    height:30px;
+    background: #7703fc;
+    color: #fff;
+ }
+
+ /*DARK MODE*/
+         
+ .dark-mode,
+ #menuOpenSettings.dark-mode,
+ #menuConvos td.dark-mode,
+ #messengerMessages.dark-mode a{
+    background:black;
+    color:white;
+ }
+ 
+ #messengerMessages.dark-mode a{
+    color:lightblue;
+ }
+ 
+ #messengerMessages.dark-mode a:hover{
+    color:#555;
+ }
+ 
+ #messengerMessages.dark-mode a:visited{
+    color:blue;
+ }
