@@ -53,6 +53,22 @@ socket.on('login-response',function(sessionid,userid){
        tableMenu.append(elt);
     });
  });
+
+ socket.on('convo-create-response', function(convoid, convoname, participants){
+   var elt = document.createElement('tr');
+   elt.id = 'convo-' + convoid;
+   elt.innerHTML = '<td>' + convoid + '</td>'
+   + '<td>' + convoname + '</td>'
+   + '<td>' + participants + '</td>'
+
+   elt.addEventListener('click',function(e){
+      e.stopPropagation();
+      var convoid = elt.querySelector('td:first-child').innerHTML;
+      socket.emit('convo-join-request',PageData.sessionid, PageData.userid, convoid);
+   });
+
+   tableMenu.append(elt);
+ })
  
  socket.on('convo-join-response',function(convoid,messages){
     if(/ERROR/.test(PageData.sessionid)) return console.error(PageData.sessionid) && (PageData.currentState = 'menu');

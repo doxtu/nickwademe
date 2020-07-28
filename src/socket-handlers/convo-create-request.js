@@ -27,7 +27,7 @@ module.exports = (db) => async function convoCreateRequest(sessionid, userid, co
           });
        });
        
-       this.emit('convo-create-response', convoid);
+       return this.emit('convo-create-response', convoid, convoname, participants);
     }
     
     this.emit('convo-create-response','ERROR: CANNOT CREATE NEW CONVO REQUEST');

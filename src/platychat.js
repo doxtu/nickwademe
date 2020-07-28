@@ -17,7 +17,7 @@ module.exports = function(io,siofu){
       socket.on('pre-login-request',preLoginRequest(db).bind(socket));
       socket.on('login-request',loginRequest(db).bind(socket));
       socket.on('convo-list-request',convoListRequest(db));
-      socket.on('convo-create-request',convoCreateRequest(db));
+      socket.on('convo-create-request',convoCreateRequest(db).bind(socket));
       socket.on('convo-join-request', convoJoinRequest(db));
       socket.on('convo-message-request', convoMessageRequest(db, io));
       socket.on('convo-search-request', convoSearchRequest(db).bind(socket));

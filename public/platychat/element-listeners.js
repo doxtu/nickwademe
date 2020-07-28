@@ -74,6 +74,18 @@ window.addEventListener('focus',function(e){
  
  formCreateConvo.addEventListener('submit',function(e){
     e.preventDefault();
+    PageData.isAddConvoToggled = false;
+
+    var convoName = inputConvoName.value;
+    var convoParticipants = inputConvoParticipants.value;
+    inputConvoName.value = '';
+    inputConvoParticipants.value = '';
+
+    var maxUsers = convoParticipants.split(',').reduce(function(acc,d){
+      return acc += 1
+    }, 0);
+
+    socket.emit('convo-create-request', PageData.sessionid, PageData.userid, convoName, convoParticipants, maxUsers)
  });
  
  formCreateTag.addEventListener('submit',function(e){
@@ -133,6 +145,11 @@ window.addEventListener('focus',function(e){
     
     PageData.currentState = 'menu';
  });
+
+ buttonAddConvo.addEventListener('click', e => {
+    e.stopPropagation();
+    PageData.isAddConvoToggled = true;
+ })
  
  buttonLogout.addEventListener('click',function(e){
     e.preventDefault();
@@ -157,6 +174,7 @@ window.addEventListener('focus',function(e){
  function hideCreateTagForm(e){
     divCreateTag.style.display = 'none';
     divSettings.style.display = 'none';
+    PageData.isAddConvoToggled = false;
  }
  
  window.addEventListener('click',function(e){
@@ -167,6 +185,8 @@ window.addEventListener('focus',function(e){
        || e.target == inputCreateTag
        || e.target == divSettings
        || Array.from(formSettingsSearch.childNodes).indexOf(e.target) != -1
+       || e.target == divCreateConvo
+       || Array.from(formCreateConvo.childNodes).indexOf(e.target) != -1
     ) return;
     hideCreateTagForm();
  });

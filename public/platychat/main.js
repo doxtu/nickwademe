@@ -4,7 +4,8 @@ var instance = new SocketIOFileUpload(socket);
 
 var PageData = {
     'states':['login','menu','menu-add-convo','messenger'],
-    'currentState':''
+    'currentState':'',
+    'isAddConvoToggled':false
 };
 
 (function init(){
@@ -27,25 +28,27 @@ var PageData = {
 
 function render(){
     switch(PageData.currentState){
-    case 'login':
-        sectionLogin.style.display = 'block';
-        sectionMenu.style.display = 'none';
-        sectionMessenger.style.display = 'none';
-        break;
-    case 'menu':
-        sectionLogin.style.display = 'none';
-        sectionMenu.style.display = 'flex';
-        sectionMessenger.style.display = 'none';
-        break;
-    case 'messenger':
-        sectionLogin.style.display = 'none';
-        sectionMenu.style.display = 'none';
-        sectionMessenger.style.display = 'flex';
-        break;
-    default:
-        sectionLogin.style.display = 'none';
-        sectionMenu.style.display = 'none';
-        sectionMessenger.style.display = 'none';
+        case 'login':
+            sectionLogin.style.display = 'block';
+            sectionMenu.style.display = 'none';
+            sectionMessenger.style.display = 'none';
+            break;
+        case 'menu':
+            sectionLogin.style.display = 'none';
+            sectionMenu.style.display = 'flex';
+            sectionMessenger.style.display = 'none';
+            PageData.isAddConvoToggled ? 
+                divCreateConvo.style.display = 'block' : divCreateConvo.style.display='none'
+            break;
+        case 'messenger':
+            sectionLogin.style.display = 'none';
+            sectionMenu.style.display = 'none';
+            sectionMessenger.style.display = 'flex';
+            break;
+        default:
+            sectionLogin.style.display = 'none';
+            sectionMenu.style.display = 'none';
+            sectionMessenger.style.display = 'none';
     }
 }
 
