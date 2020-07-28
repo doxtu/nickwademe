@@ -24,7 +24,7 @@ module.exports = (db) => async function convoSearchRequest(sessionid, userid, se
                    OR UPPER(tags.tagname) LIKE '%' || UPPER(:search) || '%'
                 )
              ORDER BY
-                messages.messageid
+                messages.messageid DESC
           `,userid, searchText, function(err,rows){
              if(err) f(err);
              s(rows);
