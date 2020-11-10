@@ -2,7 +2,6 @@ const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('../data/platychat.db');
 
 (async function(){
-   
    await new Promise(function(s,f){
       db.all(`
          CREATE VIEW dual AS SELECT 'x' AS dummy

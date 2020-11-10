@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Best Frand</title>
+    <style>
+      *{
+        margin:0;
+        padding:0;
+        border:0;
+        box-sizing: border-box;
+        font: 12px Verdana, Tahoma, sans-serif;
+      }
+
+      body{
+        margin:10px 0;
+      }
+
+      .poem, .message{
+        border: 1px solid black;
+        width:66vw;
+        margin-left:auto;
+        margin-right:auto;
+        padding:20px;
+        border-radius:20px;
+      }
+
+      p, h1{
+        margin-bottom:15px;
+        
+      }
+
+      h1{
+        font-size: 15px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+    </style>
+  </head>
+  
+  <body>
+    <div class='poem'>
+      <h1>Let's go shopping!</h1>
+      <p>“Let's go shopping!” I say to my closest friend. We are invited in the store by sliding doors. There are aisles aligned in perfectly rigid, parallel rows. Each labeled with a life purpose.</p>
+      <p>Patrons are directed to specific aisles and are advised that all they need is only there. My friend and I are assigned an aisle too. I analyze and wonder. If something is good for one, then why must it be best for all?</p>
+      <p>I rush to investigate. My friend worries for me as I diverge from them to another row. “Don't worry,” I say, “I will meet you at the end of the aisle.”</p>
+      <p>We are separate now and despite my initial excitement, I am scared and alone. To steer myself, I look for my shopping list, scraping the bottom of my pockets. I realize I never made one. Maybe my friend has it? I could easily check in with them.</p>
+      <p>Or I could decide for myself! I peruse the shelves and study the labels. Analyze the problems, possible solutions, the facts. I decide decisively, with clear clarity. What I need is missing from this aisle, so I go to another -- a simple choice when one has accepted that my assigned aisle is not enough.</p>
+      <p>People leer at me. I am confronted by a man, who criticizes my life, who has only been to one aisle. I study his face. I am here, calm and peaceful, with a friend nearby, and he is there, alone and sad, despite all the people on his side. I continue cheerfully and turn the corner.</p>
+      <p>To my surprise, my friend is waiting for me. They are giggling with a shopping cart overflowing. I smirk at them, having proven my original argument:</p>
+      <p>What is good for one may not be best for all.</p>
+    </div>
+
+    <div style='margin-top:50px' class='message'>
+      <h1>Thanks for being my best frand</h1>
+      <h1 class='message-header'>&#x1f986;&#x1f986;</h1>
+      <p>When you took the time to show me how grateful you are of me, I decided to take time to return the favor. So, I wrote this piece, which was originally a poem. However, it read more like a short story, so I converted it to the form you see now. It took me an embarrassingly long time to write. I'm sorry if it makes no sense. It doesn't really have to. I don't think I'll ever write something like this again.</p>
+      <p>You're just my best friend regardless of how much sense I make. Thanks for everything!</p>
+    </div>
+  </body>
+
+  <script>
+    var messageHeader = document.querySelector('.message-header');
+    var spaces = 6;
+
+    var animationTimer = setInterval(function(){
+      if(spaces < 0) spaces = 6;
+      var messageHeaderString = '&#x1f986;';
+      for(var i = 0; i < spaces; i++){
+        messageHeaderString += '.'
+      }
+      messageHeaderString += '&#x1f986;';
+      if(spaces === 0) messageHeaderString += '"HIIIIIIIIII"';
+      
+      spaces--;
+      messageHeader.innerHTML = messageHeaderString;
+    }, 500)
+  </script>
+</html>

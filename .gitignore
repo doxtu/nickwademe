@@ -4,4 +4,11 @@ data
 public/platychat/images/
 .well-known
 server.key
+server.crt
 server.cert
+*.key
+*.pem
+*.csr
+*.cert
+*.ext
+*.srl
