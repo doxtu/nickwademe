@@ -2,6 +2,7 @@ node_modules
 config.json
 data
 public/platychat/images/
+public/platychat2/images/
 .well-known
 server.key
 server.crt
