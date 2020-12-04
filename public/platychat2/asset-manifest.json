@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/platychat2/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/platychat2/static/js/main.2a9875b4.chunk.js",
+    "main.js.map": "/platychat2/static/js/main.2a9875b4.chunk.js.map",
+    "runtime-main.js": "/platychat2/static/js/runtime-main.fec9e3cb.js",
+    "runtime-main.js.map": "/platychat2/static/js/runtime-main.fec9e3cb.js.map",
+    "static/js/2.2e107a5e.chunk.js": "/platychat2/static/js/2.2e107a5e.chunk.js",
+    "static/js/2.2e107a5e.chunk.js.map": "/platychat2/static/js/2.2e107a5e.chunk.js.map",
+    "static/js/3.a60a9208.chunk.js": "/platychat2/static/js/3.a60a9208.chunk.js",
+    "static/js/3.a60a9208.chunk.js.map": "/platychat2/static/js/3.a60a9208.chunk.js.map",
+    "index.html": "/platychat2/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/platychat2/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.2e107a5e.chunk.js.LICENSE.txt": "/platychat2/static/js/2.2e107a5e.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fec9e3cb.js",
+    "static/js/2.2e107a5e.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.2a9875b4.chunk.js"
+  ]
+}

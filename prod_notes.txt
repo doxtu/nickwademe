@@ -7,6 +7,7 @@ PROD NOTES
 - sudo npm install
 - clone projects into directories
 - run all setup scripts
-- create image folders for middleware/sub-apps (public/platychat/images)
+- create image folders for middleware/sub-apps (images: public/platychat/images)
+- get admin sdk key and store as adminsdk.json
 - set config.json (env=PROD for production, env=DEV for development)
 - sudo systemctl restart doxtume (Restart the service, edit the service config file if necessary)

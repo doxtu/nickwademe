@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "firebase-admin": "^9.4.1",
     "socket.io": "^3.0.1",
     "socketio-file-upload": "^0.7.2",
     "sqlite3": "^4.2.0"

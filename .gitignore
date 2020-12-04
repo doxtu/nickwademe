@@ -12,3 +12,4 @@ server.cert
 *.cert
 *.ext
 *.srl
+adminsdk.json
