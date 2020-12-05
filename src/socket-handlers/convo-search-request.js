@@ -5,6 +5,9 @@ module.exports = (db, v, socket) => async (jwt, userid, searchText) => {
   let valid = await v(jwt, userid)
   if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
 
+  if (!searchText || searchText.length === 0)
+    return socket.emit('error', 'SEARCH ERROR: search text cant be empty')
+
   let messages = []
 
   try {

@@ -37,14 +37,14 @@ app.all('*', function (req, res, next) {
 })
 app.use(siofu.router)
 app.use(
-  ['/platychat2/convos', '/platychat2/messages/*', '/platychat2/login'],
+  ['/platychat/convos', '/platychat/messages/*', '/platychat/login'],
   (req, res, next) => {
-    res.redirect(`https://${req.hostname}/platychat2`)
+    res.redirect(`https://${req.hostname}/platychat`)
     next()
   }
 )
 app.use(express.static('public'))
-app.use(express.static('public/platychat2'))
+app.use(express.static('public/platychat'))
 
 http.listen(port)
 https.listen(httpsPort)
