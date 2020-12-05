@@ -30,7 +30,7 @@ module.exports = function (siofu, socket, db) {
   }
 
   const uploader = new siofu()
-  uploader.dir = 'public/platychat2/images'
+  uploader.dir = 'public/platychat/images'
   uploader.on('start', updateFileMeta)
   uploader.on('saved', updateMessageWithFile)
   uploader.listen(socket)
