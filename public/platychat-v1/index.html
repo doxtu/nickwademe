@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Platychat&#128540;</title>
+      <link rel='stylesheet' href='main.css'>
+      <link rel='stylesheet' href='login.css'>
+      <link rel='stylesheet' href='menu.css'>
+      <link rel='stylesheet' href='messenger.css'>
+   </head>
+   <body>
+   
+      <section id = 'login'>
+         <form id='formLogin'>
+            <h1>Platychat</h1>
+            <input id='username' autocomplete='off' placeholder='Username'>
+            <input id='password' type='password' placeholder='Password'>
+            <button>Login</button>
+         </form>
+      </section>
+      
+      
+      <section id = 'menu'>
+         
+         <button id='menuOpenSettings'>&#x2699;Settings & Tools&#x2699;</button>
+         
+         <div id='menuCreateConvo'>
+            <form>
+               <p>Convo Name:</p><input type='text' autocomplete='off' id='menuConvoName'>
+               <p>Participants:</p><input type='text' autocomplete='off' id='menuConvoParticipants'>
+               <button>Create!</button>
+            </form>
+         </div>
+         
+         <div id = 'menuSettings'>
+            <form id='menuSettingsSearch'>
+               <input autocomplete='off'>
+               <button>Search</button>
+            </form>
+            
+            <ul id='messageSearchResults'>
+            </ul>
+            
+            <button id='menuSettingsDarkmode'>Toggle</button>
+            
+            <ul id = 'menuSettingsUserTags'>
+            </ul>
+            
+         </div>
+         
+         <div id='menuConvosWrapper'>
+            <table id = 'menuConvos'>
+               <tr>
+                  <th>Convo ID</th>
+                  <th>Convo Name</th>
+                  <th>Participants</th>
+               </tr>
+            </table>
+         </div>
+         
+         <button id='menuAddConvo'>&#10133;Add Convo&#10133;</button>
+         <button id='menuLogout'>Logout</button>
+         
+      </section>
+      
+      <section id = 'messenger'>
+         
+         <div id='messengerMenu'>
+            <button id='messengerMenuBack'>Back</button>
+         </div>
+         
+         <ul id='messengerMessages'>
+         </ul>
+         
+         <form>
+            <input id='messengerInputFile' type='file'>
+            <input id='messengerInput' autocomplete='off' type='text'>
+            <button>Send</button>
+         </form>
+         
+         <div id='messengerCreateTag'>
+            <form>
+               <input autocomplete='off'>
+               <button>Tag</button>
+            </form>
+         </div>
+      </section>
+   </body>
+   
+   
+   <script src='/socket.io/socket.io.js'></script>
+   <script src='/siofu/client.js'></script>
+   <script src='main.js'></script>
+   <script src='elements.js'></script>
+   <script src='element-listeners.js'></script>
+   <script src='socket-listeners.js'></script>
+</html>

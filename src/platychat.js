@@ -16,8 +16,7 @@ module.exports = function (io, siofu) {
   const v = require('./platychat.utils').validateFirebaseToken
 
   io.on('connection', function (socket) {
-    console.log('hi omg connection!!!!')
-
+    console.log('hi omg connection!!!!', socket.id)
     socket.on('login-request', loginRequest(db, v, socket))
     socket.on('user-alias-request', userAliasRequest(db, v, socket))
     socket.on('user-color-request', userColorRequest(db, v, socket))
@@ -27,6 +26,11 @@ module.exports = function (io, siofu) {
     socket.on('convo-message-request', convoMessageRequest(db, io, v, socket))
     socket.on('convo-search-request', convoSearchRequest(db, v, socket))
     socket.on('message-tag-request', messageTagRequest(db, io, v))
+
+    socket.on('disconnect', () => {
+      socket.removeAllListeners()
+      socket.disconnect(true)
+    })
 
     uploader(siofu, socket, db)
   })
