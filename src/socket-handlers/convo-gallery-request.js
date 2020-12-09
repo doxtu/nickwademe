@@ -17,6 +17,8 @@ module.exports = (db, v, socket) => async (jwt, userid) => {
         AND SUBSTR(m.messageid,1,4) || '-' 
         || CAST(SUBSTR(m.messageid,5,2) + 1 as TEXT) || '-' 
         || SUBSTR(m.messageid,7,2) >= DATE('now', '-30 days')
+      ORDER BY
+        m.messageid DESC
       `,
         (err, results) => {
           if (err) f(err)
