@@ -8,6 +8,8 @@ const loginRequest = require('./socket-handlers/login-request')
 const messageTagRequest = require('./socket-handlers/message-tag-request')
 const userAliasRequest = require('./socket-handlers/user-alias-request')
 const userColorRequest = require('./socket-handlers/user-color-request')
+const suckCounterRequest = require('./socket-handlers/suck-counter-request')
+const suckIncrementRequest = require('./socket-handlers/suck-increment-request')
 
 const uploader = require('./uploader/uploader')
 
@@ -17,7 +19,7 @@ module.exports = function (io, siofu) {
   const v = require('./platychat.utils').validateFirebaseToken
 
   io.on('connection', function (socket) {
-    console.log('hi omg connection!!!!', socket.id)
+    console.log('hi omg connection!!!!')
 
     socket.on('login-request', loginRequest(db, v, socket))
     socket.on('user-alias-request', userAliasRequest(db, v, socket))
@@ -29,6 +31,10 @@ module.exports = function (io, siofu) {
     socket.on('convo-message-request', convoMessageRequest(db, io, v, socket))
     socket.on('convo-search-request', convoSearchRequest(db, v, socket))
     socket.on('message-tag-request', messageTagRequest(db, io, v))
+
+    //meme stuff
+    socket.on('suck-counter-request', suckCounterRequest(db, v, socket))
+    socket.on('suck-increment-request', suckIncrementRequest(db, v, socket))
 
     uploader(siofu, socket, db)
   })

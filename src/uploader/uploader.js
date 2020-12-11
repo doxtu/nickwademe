@@ -28,6 +28,8 @@ module.exports = function (siofu, socket, db) {
           }
         )
       })
+
+      if (e.file && e.file.success) socket.emit('convo-image-response')
     } catch (err) {}
   }
 

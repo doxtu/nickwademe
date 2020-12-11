@@ -10,6 +10,9 @@ module.exports = (db, io, v, socket) => async (
   let valid = await v(jwt, userid)
   if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
 
+  if (rawtext.length === 0)
+    return socket.emit('error', 'MESSAGE ERROR: Message cannot be blank')
+
   try {
     let convo = await new Promise(function (s, f) {
       db.all(
@@ -75,22 +78,6 @@ module.exports = (db, io, v, socket) => async (
         default:
       }
     }
-
-    //wrap http URLs with <a> element
-    // let hasHttpLink = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(
-    //   rawtext
-    // )
-
-    // if (hasHttpLink) {
-    //   let link = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.exec(
-    //     rawtext
-    //   )[0]
-
-    //   rawtext = rawtext.replace(
-    //     link,
-    //     `<a href=${link} target='_blank'>${link}</a>`
-    //   )
-    // }
 
     await new Promise(function (s, f) {
       db.all(

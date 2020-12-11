@@ -111,4 +111,30 @@ const db = new sqlite3.Database('../data/platychat.db')
       }
     )
   })
+
+  await new Promise(function (s, f) {
+    db.all(
+      `
+         CREATE TABLE suck(
+            count   NUMBER
+         )
+      `,
+      function (err, results) {
+        if (err) f()
+        s()
+      }
+    )
+  })
+
+  await new Promise(function (s, f) {
+    db.all(
+      `
+        INSERT INTO suck (count) VALUES (0)
+      `,
+      function (err, results) {
+        if (err) f()
+        s()
+      }
+    )
+  })
 })()
