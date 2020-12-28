@@ -19,7 +19,13 @@ module.exports = function (io, siofu) {
   const v = require('./platychat.utils').validateFirebaseToken
 
   io.on('connection', function (socket) {
-    console.log('hi omg connection!!!!')
+    socket.on('disconnect', (reason) =>
+      console.log(
+        'DISCONNECT - ',
+        new Date().toLocaleTimeString('en-US'),
+        reason
+      )
+    )
 
     socket.on('login-request', loginRequest(db, v, socket))
     socket.on('user-alias-request', userAliasRequest(db, v, socket))
