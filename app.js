@@ -17,16 +17,13 @@ const https = require('https').createServer(
   },
   app
 )
-const path = require('path')
+// const path = require('path')
 const io = require('socket.io')(https, {
   cors: {
     origin: true,
     methods: ['GET', 'POST'],
     credentials: true,
   },
-  pingTimeout: 180000,
-  upgradeTimeout: 30000,
-  pingInterval: 25000,
 })
 const port = 80
 const httpsPort = 443
