@@ -1,6 +1,6 @@
 const verifySession = require('./verify-session');
 const generateSessionKey = require('../platychat.utils').generateSessionKey;
-
+//TODO - Convert this and use it
 module.exports = (db, io) => async function messageTagRequest(sessionid, userid, messageid, tagname){
     let isVerified = await verifySession(db)(sessionid,userid);
     if(isVerified){

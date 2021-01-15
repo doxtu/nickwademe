@@ -13,35 +13,70 @@ const suckIncrementRequest = require('./socket-handlers/suck-increment-request')
 
 const uploader = require('./uploader/uploader')
 
-module.exports = function (io, siofu) {
+//module.exports = function (io, siofu) {
+module.exports = (ws) => {
   const sqlite3 = require('sqlite3')
   const db = new sqlite3.Database('./data/platychat.db')
   const v = require('./platychat.utils').validateFirebaseToken
 
-  io.on('connection', function (socket) {
-    socket.on('disconnect', (reason) =>
-      console.log(
-        'DISCONNECT - ',
-        new Date().toLocaleTimeString('en-US'),
-        reason
-      )
-    )
+  //io.on('connection', function (socket) {
+  ws.on('connection', (socket) =>{
 
-    socket.on('login-request', loginRequest(db, v, socket))
-    socket.on('user-alias-request', userAliasRequest(db, v, socket))
-    socket.on('user-color-request', userColorRequest(db, v, socket))
-    socket.on('convo-list-request', convoListRequest(db, v, socket))
-    socket.on('convo-gallery-request', convoGalleryRequest(db, v, socket))
-    socket.on('convo-create-request', convoCreateRequest(db, v, socket))
-    socket.on('convo-join-request', convoJoinRequest(db, v, socket))
-    socket.on('convo-message-request', convoMessageRequest(db, io, v, socket))
-    socket.on('convo-search-request', convoSearchRequest(db, v, socket))
-    socket.on('message-tag-request', messageTagRequest(db, io, v))
+    socket.on('message', async (message)=>{
+      message = JSON.parse(message)
+      const type = message.type
+      const payload = message.payload
 
-    //meme stuff
-    socket.on('suck-counter-request', suckCounterRequest(db, v, socket))
-    socket.on('suck-increment-request', suckIncrementRequest(db, v, socket))
+      switch(type){
+        case 'login-request':{
+          loginRequest(db,v,socket,message)(payload.jwt, payload.userid)
+          break;
+        }
+        case 'user-alias-request':{
+          userAliasRequest(db,v,socket)(payload.jwt, payload.userid, payload.alias) 
+          break;
+        }
+        case 'user-color-request':{
+          userColorRequest(db,v,socket)(payload.jwt, payload.userid, payload.color)
+          break;
+        }
+        case 'convo-list-request':{
+          convoListRequest(db,v,socket)(payload.jwt, payload.userid)
+          break;
+        }
+        case 'convo-gallery-request':{
+          convoGalleryRequest(db,v,socket)(payload.jwt, payload.userid)
+          break
+        }
+        case 'convo-create-request':{
+          convoCreateRequest(db, v, socket)(payload.jwt, payload.userid, payload.convoname)
+          break
+        }
+        case 'convo-join-request':{
+          convoJoinRequest(db, v, socket)(payload.jwt, payload.userid, payload.convoid)
+          break;
+        }
+        case 'convo-message-request':{
+          convoMessageRequest(db, ws, v, socket)(payload.jwt, payload.userid, payload.convoid, payload.rawtext)
+          break;
+        }
+        case 'convo-search-request':{
+          convoSearchRequest(db, v, socket)(payload.jwt, payload.userid, payload.searchText)
+          break;
+        }
+        case 'suck-counter-request':{
+          suckCounterRequest(db, v, socket)(payload.jwt, payload.userid)
+          break;
+        }
+        case 'suck-increment-request':{
+          suckIncrementRequest(db, v, socket)(payload.jwt, payload.userid, payload.valueToAdd)
+          break;
+        }
+        default:
+          return
+      }
+    })
+       // socket.on('message-tag-request', messageTagRequest(db, ws, v))
 
-    uploader(siofu, socket, db)
   })
 }

@@ -1,6 +1,6 @@
 module.exports = (db, v, socket) => async (jwt, userid) => {
   let valid = await v(jwt, userid)
-  if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
+  //if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
 
   try {
     let convoList = await new Promise(function (s, f) {
@@ -27,12 +27,12 @@ module.exports = (db, v, socket) => async (jwt, userid) => {
       convoList.map(async (convo) => {
         const aliases = await Promise.all(
           convo.participants
-            .split(',')
-            .map((participant) => participant.trim())
-            .map(async (userId) => {
-              const query = await new Promise((s, f) => {
-                db.all(
-                  `
+          .split(',')
+          .map((participant) => participant.trim())
+          .map(async (userId) => {
+            const query = await new Promise((s, f) => {
+              db.all(
+                `
                      SELECT
                         alias
                      FROM
@@ -40,22 +40,22 @@ module.exports = (db, v, socket) => async (jwt, userid) => {
                      WHERE
                         userid = :userId
                   `,
-                  userId,
-                  (err, rows) => {
-                    if (err) f(err)
-                    s(rows)
-                  }
-                )
-              })
-
-              return query.reduce(
-                (acc, row, index, arr) =>
-                  index < arr.length - 1
-                    ? acc + row.alias + ','
-                    : acc + row.alias,
-                ''
+                userId,
+                (err, rows) => {
+                  if (err) f(err)
+                  s(rows)
+                }
               )
             })
+
+            return query.reduce(
+              (acc, row, index, arr) =>
+              index < arr.length - 1
+              ? acc + row.alias + ','
+              : acc + row.alias,
+              ''
+            )
+          })
         )
 
         const unreadCount = await new Promise((s, f) => {
@@ -83,7 +83,7 @@ module.exports = (db, v, socket) => async (jwt, userid) => {
           convoname: convo.convoname,
           participants: aliases.reduce(
             (acc, d, index, arr) =>
-              index < arr.length - 1 ? acc + d + ', ' : acc + d,
+            index < arr.length - 1 ? acc + d + ', ' : acc + d,
             ''
           ),
           unreadCount: unreadCount[0].cnt,
@@ -91,38 +91,14 @@ module.exports = (db, v, socket) => async (jwt, userid) => {
       })
     )
 
-    socket.emit('convo-list-response', JSON.stringify(ret))
+    //socket.emit('convo-list-response', JSON.stringify(ret))
+    socket.send(JSON.stringify({
+      type: 'convo-list-response',
+      payload:{
+        convos: ret
+      }
+    }))
   } catch (err) {
     console.error(err)
   }
 }
-
-// module.exports = (db) => async function convoListRequest(sessionid, userid){
-//     let isVerified = await verifySession(db)(sessionid,userid);
-//     if(isVerified){
-// let convoList = await new Promise(function (s, f) {
-//   db.all(
-//     `
-//              SELECT
-//                 convoid,
-//                 convoname,
-//                 participants,
-//                 maxusers
-//              FROM
-//                 convos
-//              WHERE
-//                 participants LIKE '%' || :userid || '%'
-//           `,
-//     userid,
-//     function (err, rows) {
-//       if (err) f(err)
-//       s(rows)
-//     }
-//   )
-// }).catch(function (err) {
-//   this.emit('convo-list-response', 'convo query error')
-// })
-
-//        this.emit('convo-list-response',JSON.stringify(convoList));
-//     }
-//  }

@@ -41,7 +41,13 @@ module.exports = (db, v, socket) =>
       })
     }
 
-    socket.emit('login-request-response', color)
+    //socket.emit('login-request-response', color)
+    socket.send(JSON.stringify({
+      type: 'login-request-response',
+      payload: {
+        color: color
+      }
+    }))
   }
 
 // module.exports = (db, v) =>

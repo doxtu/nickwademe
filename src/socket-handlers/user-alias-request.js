@@ -1,9 +1,9 @@
 module.exports = (db, v, socket) => async (jwt, userid, alias) => {
   let valid = await v(jwt, userid)
-  if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
+  //if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
 
   if (!alias)
-    return socket.emit('error', 'ALIAS ERROR: Alias must have a valid value')
+    return //socket.emit('error', 'ALIAS ERROR: Alias must have a valid value')
 
   try {
     await new Promise((s, f) => {
@@ -18,6 +18,6 @@ module.exports = (db, v, socket) => async (jwt, userid, alias) => {
       )
     })
   } catch (err) {
-    socket.emit('error', 'DATABASE ERROR: Database did not process query')
+    //socket.emit('error', 'DATABASE ERROR: Database did not process query')
   }
 }

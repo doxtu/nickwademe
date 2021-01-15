@@ -1,6 +1,6 @@
 module.exports = (db, v, socket) => async (jwt, userid) => {
   let valid = await v(jwt, userid)
-  if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
+  //if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
 
   let imageUrls = []
 
@@ -28,5 +28,12 @@ module.exports = (db, v, socket) => async (jwt, userid) => {
     })
   } catch (error) {}
 
-  socket.emit('convo-gallery-response', JSON.stringify(imageUrls))
+  //socket.emit('convo-gallery-response', JSON.stringify(imageUrls))
+  socket.send(JSON.stringify({
+      type: 'convo-gallery-response',
+      payload: {
+        imageUrls: imageUrls 
+      }
+    }))
+
 }

@@ -1,6 +1,6 @@
 module.exports = (db, v, socket) => async (jwt, userid, valueToAdd) => {
   let valid = await v(jwt, userid)
-  if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
+  //if (!valid) return socket.emit('error', 'LOGIN ERROR: jwt/uid is invalid')
 
   let counter = null
 
@@ -28,5 +28,11 @@ module.exports = (db, v, socket) => async (jwt, userid, valueToAdd) => {
     counter = counter[0].count
   } catch (error) {}
 
-  socket.emit('suck-counter-response', counter)
+  //socket.emit('suck-counter-response', counter)
+  socket.send(JSON.stringify({
+    type: 'suck-counter-response',
+    payload: {
+      count: counter
+    }
+  }))
 }

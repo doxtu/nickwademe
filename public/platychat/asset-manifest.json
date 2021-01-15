@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/platychat/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/platychat/static/js/main.e5d22833.chunk.js",
-    "main.js.map": "/platychat/static/js/main.e5d22833.chunk.js.map",
-    "runtime-main.js": "/platychat/static/js/runtime-main.8536c19f.js",
-    "runtime-main.js.map": "/platychat/static/js/runtime-main.8536c19f.js.map",
-    "static/js/2.241bfd21.chunk.js": "/platychat/static/js/2.241bfd21.chunk.js",
-    "static/js/2.241bfd21.chunk.js.map": "/platychat/static/js/2.241bfd21.chunk.js.map",
-    "static/js/3.93036a03.chunk.js": "/platychat/static/js/3.93036a03.chunk.js",
-    "static/js/3.93036a03.chunk.js.map": "/platychat/static/js/3.93036a03.chunk.js.map",
+    "main.js": "/platychat/static/js/main.b7d6a03c.chunk.js",
+    "main.js.map": "/platychat/static/js/main.b7d6a03c.chunk.js.map",
+    "runtime-main.js": "/platychat/static/js/runtime-main.dd7c648a.js",
+    "runtime-main.js.map": "/platychat/static/js/runtime-main.dd7c648a.js.map",
+    "static/js/2.3202f6dd.chunk.js": "/platychat/static/js/2.3202f6dd.chunk.js",
+    "static/js/2.3202f6dd.chunk.js.map": "/platychat/static/js/2.3202f6dd.chunk.js.map",
+    "static/js/3.5bc4d2da.chunk.js": "/platychat/static/js/3.5bc4d2da.chunk.js",
+    "static/js/3.5bc4d2da.chunk.js.map": "/platychat/static/js/3.5bc4d2da.chunk.js.map",
     "index.html": "/platychat/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/platychat/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.241bfd21.chunk.js.LICENSE.txt": "/platychat/static/js/2.241bfd21.chunk.js.LICENSE.txt"
+    "static/js/2.3202f6dd.chunk.js.LICENSE.txt": "/platychat/static/js/2.3202f6dd.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.8536c19f.js",
-    "static/js/2.241bfd21.chunk.js",
+    "static/js/runtime-main.dd7c648a.js",
+    "static/js/2.3202f6dd.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.e5d22833.chunk.js"
+    "static/js/main.b7d6a03c.chunk.js"
   ]
 }

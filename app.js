@@ -17,7 +17,6 @@ const https = require('https').createServer(
   },
   app
 )
-// const path = require('path')
 const io = require('socket.io')(https, {
   cors: {
     origin: true,
@@ -25,26 +24,38 @@ const io = require('socket.io')(https, {
     credentials: true,
   },
 })
+const WebSocket = require('ws')
+const ws = new WebSocket.Server({ noServer: true })
 const port = 80
 const httpsPort = 443
 const platychat = require('./src/platychat.js')
 
-platychat(io, siofu)
+//platychat(io, siofu)
+platychat(ws)
 
 app.all('*', function (req, res, next) {
   if (req.protocol === 'https') return next()
   res.redirect('https://' + req.hostname + req.url)
 })
+
+app.use(express.static('public'))
+app.use(express.static('public/platychat'))
+
 app.use(siofu.router)
+
 app.use(
   ['/platychat/convos', '/platychat/messages/*', '/platychat/login'],
   (req, res, next) => {
     res.redirect(`https://${req.hostname}/platychat`)
-    next()
+    //next()
   }
 )
-app.use(express.static('public'))
-app.use(express.static('public/platychat'))
 
 http.listen(port)
-https.listen(httpsPort)
+const server = https.listen(httpsPort)
+
+server.on('upgrade', (request, socket, head) =>{
+  ws.handleUpgrade(request, socket, head, (socket) => {
+    ws.emit('connection',socket, request);
+  })
+})
