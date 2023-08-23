@@ -10,6 +10,10 @@ def index():
 def gallery_page():
     return render_template('portfolio/index.html')
 
+@app.route('/card')
+def card_page():
+    return render_template('card/index.html')
+
 @app.route('/kim-kidney')
 def kim_kidney():
     return render_template('kim-kidney/index.html')

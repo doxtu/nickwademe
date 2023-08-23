@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="copy of carrd" />
+    <meta name="keywords" content="carrd, social, media, links, portfolio" />
+    <title>social media</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        font: 15px Verdana, sans-serif;
+      }
+      
+      body {
+        height: 99vh;
+        background: linear-gradient(0deg, #9e7ec2 33%,  #ae9dc2);
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      div.card {
+        background: #fff;
+        border: 1px solid black;
+        border-radius: 1rem;
+        min-width: 27vw;
+        width: 80%;
+        max-width: 500px;
+        min-height: 80vh;
+        margin: auto;
+        margin-top: 10vh;
+        padding: 2rem;
+        animation-name: card-intro;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+
+      ul.card-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      ul.card-content > li {
+        overflow: hidden;
+        margin-bottom: 3rem;
+      }
+
+      ul.card-content > li h1 {
+        text-align: center;
+        font-size: 1.75rem;
+      }
+
+      ul.card-content > li.profile-pic {
+        width: 11rem;
+        height: 11rem;
+        border-radius: 15rem;
+      }
+
+      ul.card-content > li.profile-pic img {
+        position: relative;
+        width: 250px;
+        right: 40px;
+      }
+
+      ul.social-media-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      ul.social-media-links > li{
+        overflow: hidden;
+        border: 1px solid black;
+        border-radius: 15rem;
+        width: 4.5rem;
+        height: 4.5rem;
+        margin: 0 1rem;
+      }
+
+      ul.social-media-links > li img{
+        position: relative;
+        width: 32px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      @keyframes card-intro{
+        from {
+          opacity: 0;
+          transform: perspective(1000px) rotateX(20deg);
+        }
+        to {
+          opacity: 1;
+          transform: 0;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        ul.social-media-links > li{
+          width: 3.5rem;
+          height: 3.5rem;
+        }
+      }
+
+    </style>
+  </head> 
+  <body>
+    <div class="card">
+      <ul class="card-content">
+        <li class="profile-pic"><img src="static/gnomed.webp" alt="image-here"/></li>
+        <li><h1>Nick Gonzales</h1></li>
+        <li>
+          <ul class="social-media-links">
+            <li><a href="https://linkedin.com/in/nick-gonzales-data" target="_blank"><img src="static/linkedin.webp" alt="linkedin" /></a></li>
+            <li><a href="https://github.com/doxtu" target="_blank"><img src="static/github-mark.svg" alt="github" /></a></li>
+            <li><a href="#" target="_blank"><img src="static/email.webp" alt="email" /></a></li>
+          </ul>
+        </li>
+        <li><p>{made by <a href="http://nickwade.me" target="_blank">nick g</a>}</p></li>
+      </ul>
+    </div>
+  </body>
+</html>
