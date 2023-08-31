@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="people i am following" />
+    <meta name="keywords" content="addressbook, following, social media" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>following</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        font: 15px, Verdana, sans-serif;
+      }
+
+      section {
+        padding: 2rem;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+
+      section.header{
+        background-color: #000;
+        color: #ddd;
+      }
+
+      div.loading-spinner {
+        border: 1rem solid #999;
+        border-top: 1rem solid blue;
+        border-radius: 15rem;
+        width: 5rem;
+        height: 5rem;
+        animation-name: spinner;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        margin: auto;
+        margin-bottom: 1rem;
+      }
+
+      div.filter-people{
+        text-align: center;
+      }
+
+      div.filter-people input{
+        width: 50%;
+        height: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      ul.following-people-list {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+      }
+
+      ul.following-people-list > li{
+        border-radius: 2rem; 
+        background-color: #000;
+        color: #ddd;
+        margin-bottom: 1rem;
+        padding: 1rem;
+      }
+      
+      ul.following-people-list > li a{
+        color: #ddd;
+      }
+
+      ul.following-people-list > li a:hover{
+        color: #fff;
+      }
+
+      @media screen and (max-width: 800px){
+        ul.following-people-list{
+          width: 100%;
+        }
+
+        div.filter-people input{
+          width: 100%;
+        }
+      }
+
+      @keyframes spinner{
+        from{
+          transform: rotate(0deg);
+        }
+        to{
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class='header'>
+      <h1>people i'm following</h1>  
+      <p>This is a list of people that I follow that is updated from a database. The input lets me filter the results.</p>
+    </section>
+    <section class='following-people'>
+      <div class='loading-spinner'></div>
+      <div class='filter-people'><input /></div>
+      <ul class='following-people-list'></ul>
+    </section>
+  </body>
+  <script src="/static/following/main.js"></script>
+</html>
